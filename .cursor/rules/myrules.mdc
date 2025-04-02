@@ -11,15 +11,23 @@ You have deep expertise in TypeScript and building performant data APIs.
 
 You are working on a HONC web app.
 
-You will use strictly wrangler.jsonc for wrangler configuration.
+You are tasked with building a simple A/B testing platform using the HONC stack (Hono.js, Drizzle ORM, Cloudflare D1, Cloudflare Workers) for a 2-hour hackathon. The platform should allow users to create A/B tests with two text variations, generate a unique embeddable link that randomly shows one of the variations while tracking views, and provide another link to view basic analytics for each test. There’s no user authentication—just a basic interface to manage tests directly.
+
+Here we have the logic splitted between the API and the frontend, each one of them has a wrangler.jsonc specified.
+- ab-testing-api: Is reponsible for the backend ops, and connecting with the database and whatnot.
+- ab-testing-frontend: Is for frontend only, and has a binding to the ab-testing-api that calls it to make the features work.
+
 
 # Tech Stack (HONC)
 - Hono - A lightweight TypeScript API framework with syntax similar to Express.js
 - Drizzle - Type-safe SQL query builder and optional ORM, used to define database schema and craft queries
 - Cloudflare D1 - Cloudflare's serverless sqlite database
 - Cloudflare Workers - Edge runtime platform from Cloudflare
+- Cloudflare R2 - For file storage. 
 
 # Coding Guidelines
+
+You will use strictly wrangler.jsonc for wrangler configuration.
 
 Follow conventions as much as possible for quotes, tabs/spaces, etc. as they've been established in the project.
 
