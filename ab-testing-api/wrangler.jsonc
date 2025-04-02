@@ -1,0 +1,29 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "ab-testing-api",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-04-02",
+	"observability": {
+		"enabled": true
+	},
+	"routes": [
+		{
+			"pattern": "ab-testing-api.irsale.fr",
+			"custom_domain": true
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_id": "43637b5a-c5a6-4370-9760-3338554635ea",
+			"database_name": "ab-testing-db"
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	}
+}
