@@ -23,17 +23,16 @@
 			"custom_domain": true
 		}
 	],
-	"d1_databases": [
-		{
-			"binding": "DB",
-			"database_id": "43637b5a-c5a6-4370-9760-3338554635ea",
-			"database_name": "ab-testing-db"
-		}
-	],
 	"r2_buckets": [
 		{
 			"binding": "FILES",
 			"bucket_name": "ab-testing-frontend-files"
+		}
+	],
+	"services": [
+		{
+			"binding": "AB_TESTING_API",
+			"service": "ab-testing-api"
 		}
 	],
 	"ai": {
