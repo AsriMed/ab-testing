@@ -16,6 +16,12 @@
 			"custom_domain": true
 		}
 	],
+	"r2_buckets": [
+		{
+			"binding": "FILES",
+			"bucket_name": "ab-testing-frontend-files"
+		}
+	],
 	"d1_databases": [
 		{
 			"binding": "DB",
