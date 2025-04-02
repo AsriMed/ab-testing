@@ -131,8 +131,11 @@ GET /content/:experimentId - Returns randomly selected variation based on weight
   "name": "ab-testing-frontend",
   "compatibility_date": "2024-01-01",
   "routes": [
-    { "pattern": "*", "zone_name": "<your-zone>" }
-  ],
+		{
+			"pattern": "ab-testing-frontend.irsale.fr",
+			"custom_domain": true
+		}
+    ],
   "services": [
     {
       "binding": "API",
