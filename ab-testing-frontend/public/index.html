@@ -1,31 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hello, World!</title>
+		<title>A/B Testing Platform</title>
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 	</head>
-	<body>
-		<h1 id="heading"></h1>
-		<button id="button" type="button">Fetch a random UUID</button>
-		<output id="random" for="button"></output>
-		<script>
-			fetch('/message')
-				.then((resp) => resp.text())
-				.then((text) => {
-					const h1 = document.getElementById('heading');
-					h1.textContent = text;
-				});
+	<body class="bg-gray-50">
+		<div class="max-w-7xl mx-auto px-4 py-8">
+			<nav class="bg-white shadow-md mb-8 p-4 rounded">
+				<div class="max-w-7xl mx-auto">
+					<div class="flex justify-between">
+						<div class="flex">
+							<div class="flex-shrink-0 flex items-center">
+								<span class="text-2xl font-bold text-blue-600">A/B Test</span>
+							</div>
+							<div class="ml-6 flex space-x-8">
+								<a 
+									href="/" 
+									class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+								>
+									Home
+								</a>
+								<a 
+									href="/create" 
+									class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+								>
+									Create Test
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
 
-			const button = document.getElementById("button");
-			button.addEventListener("click", () => {
-				fetch('/random')
-					.then((resp) => resp.text())
-					.then((text) => {
-						const random = document.getElementById('random');
-						random.textContent = text;
-					});
-			});
-		</script>
+			<h1 class="text-3xl font-bold text-center">A/B Testing Platform</h1>
+			<p class="text-center mt-4">A simple platform for creating and managing A/B tests</p>
+			
+			<div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+				<h2 class="text-xl font-semibold mb-4">Get Started</h2>
+				<p class="mb-4">Welcome to the A/B Testing Platform! Use this tool to:</p>
+				<ul class="list-disc pl-5 mb-4 space-y-2">
+					<li>Create A/B tests with different HTML variations</li>
+					<li>Get embed codes to include in your website</li>
+					<li>Track user interactions with each variation</li>
+					<li>View analytics to see which variation performs better</li>
+				</ul>
+				<div class="flex justify-center mt-6">
+					<a href="/create" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+						Create Your First Test
+					</a>
+				</div>
+			</div>
+			
+			<footer class="bg-white mt-12 py-6 border-t text-center">
+				<p class="text-gray-500 text-sm">
+					&copy; 2025 A/B Testing Platform
+				</p>
+			</footer>
+		</div>
 	</body>
 </html>
