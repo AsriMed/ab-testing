@@ -15,7 +15,7 @@ You are tasked with building a simple A/B testing platform using the HONC stack 
 
 Here we have the logic splitted between the API and the frontend, each one of them has a wrangler.jsonc specified.
 - ab-testing-api: Is reponsible for the backend ops, and connecting with the database and whatnot.
-- ab-testing-frontend: Is for frontend only, and has a binding to the ab-testing-api that calls it to make the features work.
+- ab-testing-frontend: Is for frontend only, and has a binding to the ab-testing-api that calls it to make the features work. You going to use only Vue.js
 
 
 # Tech Stack (HONC)
