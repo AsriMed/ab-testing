@@ -25,8 +25,9 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_id": "43637b5a-c5a6-4370-9760-3338554635ea",
-			"database_name": "ab-testing-db"
+			"database_name": "ab-testing-db",
+			"database_id": "abb8e89a-674a-48aa-9ade-ac6f3d3a3235",
+			"migrations_dir": "src/db/migrations"
 		}
 	],
 	"ai": {

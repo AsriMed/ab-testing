@@ -11,8 +11,26 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export default {
-	async fetch(request, env, ctx): Promise<Response> {
-		return new Response('Hello World!');
-	},
-} satisfies ExportedHandler<Env>;
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { Bindings } from "./db/schema";
+
+// Import routes
+import experiments from "./routes/experiments";
+import variations from "./routes/variations";
+import analytics from "./routes/analytics";
+import embed from "./routes/embed";
+
+const app = new Hono<{ Bindings: Bindings }>();
+
+// Enable CORS
+app.use("/*", cors());
+
+// Mount routes
+app.route("/api/experiments", experiments);
+app.route("/api/experiments/:experimentId/variations", variations);
+app.route("/api/experiments/:experimentId/analytics", analytics);
+app.route("/api/track-view", analytics);
+app.route("/embed", embed);
+
+export default app;
