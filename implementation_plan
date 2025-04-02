@@ -1,0 +1,177 @@
+I'll refine the architecture with a clear separation between frontend and backend concerns.
+
+### Architecture Overview (Refined)
+
+#### ab-testing-api (Backend)
+- Handles all data operations and business logic
+- Serves the embed script and A/B test content
+- Manages analytics tracking
+- Uses Hono.js, Drizzle ORM, and D1
+
+**API Routes**:
+```typescript
+// Experiments
+GET /api/experiments
+POST /api/experiments
+GET /api/experiments/:id
+DELETE /api/experiments/:id
+
+// Variations
+GET /api/experiments/:id/variations
+POST /api/experiments/:id/variations
+PUT /api/experiments/:id/variations/:variationId
+
+// Analytics
+GET /api/experiments/:id/analytics
+POST /api/track-view/:experimentId
+
+// Embed Related
+GET /embed/:experimentId - Serves the JavaScript embed code
+GET /content/:experimentId - Returns randomly selected variation based on weights
+```
+
+#### ab-testing-frontend (Frontend)
+- Pure React application
+- Communicates with ab-testing-api via API bindings
+- No direct database or backend logic
+- Focuses on UI/UX and state management
+
+**Frontend Routes**:
+```
+/ - Home (List experiments)
+/create - Create experiment form
+/xp/:id - Experiment details
+/analytics/:id - View analytics
+```
+
+### Database Schema (ab-testing-api)
+
+```typescript
+// Experiments table
+{
+  id: string // UUID
+  name: string
+  description: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+// Variations table
+{
+  id: string
+  experimentId: string
+  content: string
+  weight: number // 0-100
+  type: 'A' | 'B'
+}
+
+// Views table
+{
+  id: string
+  experimentId: string
+  variationId: string
+  timestamp: Date
+  userAgent: string
+  country: string
+}
+```
+
+### Implementation Phases (Refined)
+
+#### Phase 1: Backend Setup (ab-testing-api)
+1. Database setup
+   - Schema definition
+   - Migrations
+   - Database utilities
+2. API endpoints implementation
+   - CRUD operations for experiments
+   - Variation management
+   - Analytics tracking
+3. Embed functionality
+   - JavaScript snippet generator
+   - Content serving logic
+   - View tracking endpoint
+
+#### Phase 2: Frontend Setup (ab-testing-frontend)
+1. Project structure
+   - React components
+   - API client setup
+   - Routing configuration
+2. Core pages
+   - Home page (experiment list)
+   - Creation form
+   - Experiment details
+   - Analytics dashboard
+3. UI components
+   - Data tables
+   - Forms
+   - Charts for analytics
+   - Copy-to-clipboard functionality
+
+### Configuration Files
+
+#### ab-testing-api/wrangler.jsonc
+```jsonc
+{
+  "name": "ab-testing-api",
+  "compatibility_date": "2024-01-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ab_testing_db",
+      "database_id": "<your-d1-database-id>"
+    }
+  ]
+}
+```
+
+#### ab-testing-frontend/wrangler.jsonc
+```jsonc
+{
+  "name": "ab-testing-frontend",
+  "compatibility_date": "2024-01-01",
+  "routes": [
+    { "pattern": "*", "zone_name": "<your-zone>" }
+  ],
+  "services": [
+    {
+      "binding": "API",
+      "service": "ab-testing-api"
+    }
+  ]
+}
+```
+
+### Embed Script Concept
+The embed script will be served by ab-testing-api and will look something like this:
+```javascript
+(function(experimentId) {
+  // Fetch content from ab-testing-api
+  fetch('https://ab-testing-api.workers.dev/content/' + experimentId)
+    .then(res => res.json())
+    .then(data => {
+      // Insert content into specified element
+      document.getElementById('ab-test-' + experimentId).innerHTML = data.content;
+      // Track view
+      fetch('https://ab-testing-api.workers.dev/track-view/' + experimentId, {
+        method: 'POST',
+        // Include necessary tracking data
+      });
+    });
+})('experiment-id-here');
+```
+
+### Next Steps
+Once you're ready to start implementation, we should begin with:
+
+1. Setting up the ab-testing-api:
+   - Database schema and migrations
+   - Core API endpoints
+   - Embed functionality
+
+2. Then move to ab-testing-frontend:
+   - Project setup with React
+   - API client integration
+   - Core UI components
+
+Let me know when you want to start the implementation, and which part you'd like to tackle first.
